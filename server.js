@@ -1,8 +1,8 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
 const { inherits } = require("node:util");
-const View = require("classes.js");
-const Add = require("classes.js")
+const { employees, roles, departments } = require("./functions");
+
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
   user: "sergiogomez100000",
 
   password: "",
-  database: "employeeDB",
+  database: "employee_db",
 });
 
 connection.connect((err) => {
@@ -43,31 +43,29 @@ function init() {
     .then(function (response) {
       switch (response.Menu) {
         case "View Employees":
-          class View extends viewEmployees();
+          employees.view;
           break;
         case "View Roles":
-          class View extends viewRoles();
+          roles.view;
           break;
         case "View Departments":
-          class View extends viewDepartments();
+          departments.view;
           break;
         case "Add Employee":
-          class Add extends addEmployee();
+          employees.add;
           break;
         case "Add Role":
-           class Add extends addRole();
+           roles.add;
           break;
         case "Add Department":
-          class Add extends addDepartment();
+          departments.add;
           break;
         case "Update Employee Role":
-          updateEmployeeRole();
+          employees.update;
           break;
       }
     });
 }
 
 
-function updateEmployeeRole(){
-
-};
+module.exports = init;
