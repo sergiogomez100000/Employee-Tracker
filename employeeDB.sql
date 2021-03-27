@@ -9,10 +9,18 @@ USE employees_db;
 -- Creates the table "people" within animals_db --creates properties for peopple
 CREATE TABLE department (
   -- Makes a numerical column called "id" 
-  id INT,
+  id INT AUTO_INCREMENT,
   -- Makes a string column called "name" with max chars at 30
   name VARCHAR(30),
   --sets id as primaary key
+  PRIMARY KEY (id)
+);
+CREATE TABLE department (
+  
+  id INT,
+  
+  name VARCHAR(30),
+
   PRIMARY KEY (id)
 );
 
@@ -28,10 +36,22 @@ CREATE TABLE role (
   -- sets id as primary key
   PRIMARY KEY (id)
 );
+CREATE TABLE role (
+  
+  id INT,
+  
+  title VARCHAR(30),
+  
+  salary DECIMAL(10,4),
+ 
+  department_id INT,
+  
+  PRIMARY KEY (id)
+);
 
 CREATE TABLE employee (
   --make a numerical column called "id"
-  id INT,
+  id INT AUTO_INCREMENT,
   --make a string column called "first_name"
   first_name VARCHAR(30),
   --make a string column called "last_name"
@@ -43,3 +63,24 @@ CREATE TABLE employee (
   --set id as primary key
   PRIMARY KEY (id)
 );
+
+CREATE TABLE employee (
+  
+  id INT AUTO_INCREMENT,
+ 
+  first_name VARCHAR(30),
+  
+  last_name VARCHAR(30),
+  
+  role_id INT,
+  
+  manager_id INT,
+  
+  PRIMARY KEY (id)
+);
+
+INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
+VALUES (id, "Sergio", "Gomez", role_id, manager_id);
+
+INSERT INTO department (id, name)
+VALUES (id, "Sales");
