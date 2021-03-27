@@ -17,7 +17,7 @@ CREATE TABLE department (
 );
 CREATE TABLE department (
   
-  id INT,
+  id INT AUTO_INCREMENT,
   
   name VARCHAR(30),
 
@@ -26,7 +26,7 @@ CREATE TABLE department (
 
 CREATE TABLE role (
   -- Makes a numerical column called "id"
-  id INT,
+  id INT AUTO_INCREMENT,
   -- make a string column called "title" with max chars at 30
   title VARCHAR(30),
   -- makes a decimal column called "salary"; gives 10 spaces to display info with 4 being the right side of decimal
@@ -38,11 +38,11 @@ CREATE TABLE role (
 );
 CREATE TABLE role (
   
-  id INT,
+  id INT AUTO_INCREMENT,
   
   title VARCHAR(30),
   
-  salary DECIMAL(10,4),
+  salary DECIMAL(10,2),
  
   department_id INT,
   
@@ -79,8 +79,30 @@ CREATE TABLE employee (
   PRIMARY KEY (id)
 );
 
-INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
-VALUES (id, "Sergio", "Gomez", role_id, manager_id);
+INSERT INTO department (name)
+VALUES ("Management");
 
-INSERT INTO department (id, name)
-VALUES (id, "Sales");
+INSERT INTO department (name)
+VALUES ("Sales");
+
+INSERT INTO department (name)
+VALUES ("Engineering");
+
+INSERT INTO role (title, salary, department_id)
+VALUES ("Manager", 150000, 1);
+
+INSERT INTO role (title, salary, department_id)
+VALUES ("Salesperson", 100000, 2);
+
+INSERT INTO role (title, salary, department_id)
+VALUES ("Engineer", 80000, 3);
+
+INSERT INTO employee (first_name, last_name, role_id)
+VALUES ("Tucker", "Beauchamp", 1 );
+
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES ("Dan", "Lucas", 2, 1);
+
+INSERT INTO employee (first_name, last_name , role_id, manager_id)
+VALUES ("Sergio", "Gomez", 3 , 1);
+

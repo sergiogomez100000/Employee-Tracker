@@ -1,6 +1,8 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
 const { inherits } = require("node:util");
+const View = require("classes.js");
+const Add = require("classes.js")
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -29,41 +31,43 @@ function init() {
         message: "What would you like to do?",
         choices: [
           "View Employees",
+          "View Roles",
+          "View Departments",
           "Add Employee",
           "Add Role",
           "Add Department",
-          "Update Employee Roles",
+          "Update Employee Role",
         ],
       },
     ])
     .then(function (response) {
       switch (response.Menu) {
-        case "View All Employees":
-          viewEmployees();
+        case "View Employees":
+          class View extends viewEmployees();
+          break;
+        case "View Roles":
+          class View extends viewRoles();
+          break;
+        case "View Departments":
+          class View extends viewDepartments();
           break;
         case "Add Employee":
-          addEmployee();
+          class Add extends addEmployee();
           break;
         case "Add Role":
-          addRole();
+           class Add extends addRole();
           break;
         case "Add Department":
-          addDepartment();
+          class Add extends addDepartment();
           break;
-        case "Update Employee Roles":
-          updateEmployeeRoles();
+        case "Update Employee Role":
+          updateEmployeeRole();
           break;
       }
     });
 }
 
-function viewEmployees(){
 
-};
-
-function addEmployee(){
-
-};
-function updateEmployeeRoles(){
+function updateEmployeeRole(){
 
 };
