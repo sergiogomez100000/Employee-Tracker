@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const init = require("server.js")
+const init = require("server.js");
 
 
 const departments = {
@@ -97,20 +97,24 @@ const employees = {
     }, 
     update: function(){
         inquirer.prompt([{
-            name:"employee",
+            name:"first_name",
             type:"input",
-            message:"Which employee's role would you like to update?"
+            message:"What is the first name of the employee that you would like to update?"
         },{
-            name:"role",
+            name:"last_name",
+            type:"input",
+            message:"What is the last name of the employee that you would like to update?"
+        },{
+            name:"role_id",
             type:"input",
             message:"What role would you like to change it to?"
         }])
 
         .then(function (response){
-            console.query(`INSERT INTO employee (first_name, last_name, role_id,manager_id) VALUES (${response.first_name},${response.last_name},${response.role_id},${response.manager_id})`, function (err,results){
+            console.query(`Update employee SET role_id = ${response.role_id} WHERE first_name = "${response.first_name}", last_name = "${response.last_name}" `, function (err,results){
                 if(err) throw err;
                 console.table(results);
-                init();
+                    init();
     }
    
 
