@@ -46,29 +46,40 @@ function init() {
           init();
           break;
         case "View Roles":
-          role_view();
+          database.role_view();
           init();
           break;
         case "View Departments":
-          department_view();
+          database.department_view();
           init();
           break;
         case "Add Employee":
-          employee_add();
+          database.employee_add();
           init();
           break;
         case "Add Role":
-           role_add();
+          database.role_add();
            init();
           break;
         case "Add Department":
-          department_add();
+          database.department_add();
           init();
           break;
         case "Update Employee Role":
-          employee_update();
+          database.employee_update();
           init();
           break;
       }
     });
+}
+
+function employee_view(){
+  console.log("Viewing employees..")
+  database.employee_view()
+  .then(data => {
+    console.log(data)
+
+    init();
+  })
+  .catch(e => console.error(e))
 }

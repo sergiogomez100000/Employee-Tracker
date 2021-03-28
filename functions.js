@@ -72,7 +72,7 @@ class database {
 
 
     employee_view(){
-        this.connection.query("SELECT * FROM employee", function (err, results) {
+         this.connection.query("SELECT * FROM employee", function (err, results) {
             if (err) throw err;
             console.table(results);
         });
