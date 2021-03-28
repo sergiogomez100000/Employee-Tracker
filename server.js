@@ -1,23 +1,22 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
-const { inherits } = require("node:util");
-const { employees, roles, departments } = require("./functions");
+const database = require("./functions");
 
 
 const connection = mysql.createConnection({
   host: "localhost",
 
-  port: 5000,
+  port: 3306,
 
-  user: "sergiogomez100000",
+  user: "root",
 
   password: "",
-  database: "employee_db",
+  database: "employees_db",
 });
 
 connection.connect((err) => {
   if (err) throw err;
-  console.log(`Connected as id ${connection.thread.Id}`);
+  console.log(`Connected as id ${connection.threadId}`);
 
   init();
 });
@@ -43,29 +42,33 @@ function init() {
     .then(function (response) {
       switch (response.Menu) {
         case "View Employees":
-          employees.view;
+          employee_view();
+          init();
           break;
         case "View Roles":
-          roles.view;
+          role_view();
+          init();
           break;
         case "View Departments":
-          departments.view;
+          department_view();
+          init();
           break;
         case "Add Employee":
-          employees.add;
+          employee_add();
+          init();
           break;
         case "Add Role":
-           roles.add;
+           role_add();
+           init();
           break;
         case "Add Department":
-          departments.add;
+          department_add();
+          init();
           break;
         case "Update Employee Role":
-          employees.update;
+          employee_update();
+          init();
           break;
       }
     });
 }
-
-
-module.exports = init;
