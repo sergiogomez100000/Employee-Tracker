@@ -23,12 +23,7 @@ class Database {
 
     ////////add methods (department, role, employee)
     department_add() {
-        inquirer
-            .prompt({
-                name: "name",
-                type: "input",
-                message: "What is the department name?",
-            })
+        
             .then(function (response) {
                 this.connection.query(
                     `INSERT INTO department (name) VALUES ("${response.name}")`,

@@ -49,10 +49,9 @@ function loadPrompts() {
         case "Add Role":
           addRole();
           break;
-        // case "Add Department":
-        //   database.department_add();
-        //   init();
-        //   break;
+        case "Add Department":
+          addDepartment();
+          break;
         // case "Update Employee Role":
         //   database.employee_update();
         // //   init();
@@ -133,49 +132,50 @@ async function addEmployee() {
 }
 
 async function addRole() {
-  try{
-  const allDepartments = await database.department_view();
-  newRole = {};
-  newRole.title = await
-    prompt([
-      {
-        name: "title",
-        type: "input",
-        message: "What is the Role title?",
+  try {
+    const allDepartments = await database.department_view();
+    newRole = {};
+    newRole.title = await
+      prompt([
+        {
+          name: "title",
+          type: "input",
+          message: "What is the Role title?",
+        }])
+    newRole.salary = await
+      prompt([{
+        name: "salary",
+        type: "number",
+        message: "What is the Role salary?",
       }])
-  newRole.salary = await
-    prompt([{
-      name: "salary",
-      type: "number",
-      message: "What is the Role salary?",
-    }])
-  newRole.department_id = await
-    prompt([{
-      name: "department_id",
-      type: "rawlist",
-      message: "what department is it does this Role belong to?",
-      choices: allDepartments.map(({ id, name }) => ({
-        name: name,
-        value: id
-      }))
-    }]),
-    await database.department_add(newRole);
+    newRole.department_id = await
+      prompt([{
+        name: "department_id",
+        type: "rawlist",
+        message: "what department is it does this Role belong to?",
+        choices: allDepartments.map(({ id, name }) => ({
+          name: name,
+          value: id
+        }))
+      }]),
+      await database.role_add(newRole);
     console.log(newRole)
     console.log("Role has been added!!");
     viewAllRoles();
-  } catch(err) {console.log(err)}
+  } catch (err) { console.log(err) }
 }
-//   newEmp.role = roleId
 
-//   // give them manager choices
+async function addDepartment(){
+  newDepartment= {};
+newDepartment.name = await prompt({
+                name: "name",
+                type: "input",
+                message: "What is the department name?",
+            }),
+            await database.
+}
 
-//   await database.create_employee(newEmp);
 
-//   // print a message that employee was created
-
-//   // load prompts again
-
-// }
 
 // function employee_update() {
 //   // get all the employees --> choose which employee
