@@ -119,8 +119,8 @@ async function addEmployee() { // cREATE
        name: "manager_id",
       type: "rawlist",
       message: "Who is this employee's manager?",
-      choices: allManagers.map(({id,title})=>({
-        name:title,
+      choices: allManagers.map(({id,first_name, last_name})=>({
+        name:first_name, last_name,
         value: id
       }))
     }),

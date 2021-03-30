@@ -56,4 +56,4 @@ CREATE TABLE employee (
 -- FROM employee
 -- INNER JOIN role ON role_id = role.id;
 
-SELECT  INNER JOIN role WHERE id=1;
+-- SELECT first_name, last_name, role_id FROM employee INNER JOIN role ON role_id=1;
