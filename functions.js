@@ -17,8 +17,8 @@ class Database {
     employee_view() {
         return this.connection.query("SELECT first_name, last_name, title FROM employee INNER JOIN role ON role_id = role.id");
     }
-    manager_view(){
-        return this.connection.query("SELECT * FROM employee WHERE id=1");
+    manager_view() {
+        return this.connection.query("SELECT * FROM employee WHERE role_id=1");
     }
 
     ////////add methods (department, role, employee)
@@ -70,9 +70,10 @@ class Database {
             });
     }
 
-    employee_add() {
-       return this.connection.query(
-            `INSERT INTO employee (first_name, last_name, role_id,manager_id) VALUES ("${newEmp.Name.first_name}","${newEmp.Name.last_name}",${newEmp.role_id},${newEmp.manager_id})`,
+    employee_add(newEmp) {
+        return this.connection.query(
+            "INSERT INTO employee (first_name, last_name, role_id,manager_id) VALUES (?,?,?,?)",
+            [newEmp.Name.first_name, newEmp.Name.last_name, newEmp.role_id, newEmp.manager_id]
         );
     }
 

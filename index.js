@@ -126,8 +126,7 @@ async function addEmployee() { // cREATE
     }),
     await database.employee_add(newEmp);
     console.log("Employee has been added!!");
-    console.table(employees);
-  loadPrompts();
+    viewAllEmployees();
 }
 //   newEmp.role = roleId
 
