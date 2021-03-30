@@ -5,12 +5,14 @@ const database = require("./functions");
 // console table
 require("console.table");
 
+
 init();
 
 function init() {
 
   loadPrompts();
 }
+
 function loadPrompts() {
   prompt([
     {
@@ -28,11 +30,12 @@ function loadPrompts() {
       ],
     },
   ])
-    .then(function (answer) {
-      switch (answer) {
-        case "View Employees":
-          viewAllEmployees();
-          break;
+    // .then(function (answer) {
+    //   console.log(answer.Menu)
+    //   switch (answer.Menu) {
+    //     case "View Employees":
+    //       viewAllEmployees();
+    //       break;
         // case "View Roles":
         //   role_view();
         //   // init();
@@ -55,24 +58,24 @@ function loadPrompts() {
         //   break;
         // case "Update Employee Role":
         //   database.employee_update();
-        //   init();
+        // //   init();
         //   break;
-        default:
-          init();
-      }
-      // });
-    })
+        // default:
+        //   init();
+    //   }
+    //   // });
+    // })
 
 }
 
 
 
-  async function viewAllEmployees() {
-    console.log("Viewing employees..")
-    const employees = await database.employee_view();
-    console.table(employees);
-    loadPrompts();
-  }
+  // async function viewAllEmployees() {
+  //   console.log("Viewing employees..")
+  //   const employees = await database.employee_view();
+  //   console.table(employees);
+  //   loadPrompts();
+  // }
 
 // async function viewAllEmployees(){
 //   console.log("Viewing employees..")
