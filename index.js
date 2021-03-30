@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const { prompt } = require("inquirer");
 const mysql = require("mysql");
+// const { department_add } = require("./functions");
 const database = require("./functions");
 // console table
 require("console.table");
@@ -45,10 +46,9 @@ function loadPrompts() {
         case "Add Employee":
           addEmployee();
           break;
-        // case "Add Role":
-        //   database.role_add();
-        //    init();
-        //   break;
+        case "Add Role":
+          addRole();
+          break;
         // case "Add Department":
         //   database.department_add();
         //   init();
@@ -87,46 +87,83 @@ async function viewAllDepartments() {
 }
 
 
-async function addEmployee() { // cREATE
-  const allRoles = await database.role_view();
-  const allManagers = await database.manager_view();
-  newEmp = [];
-  newEmp.Name = await
-    prompt([
+async function addEmployee() {
+  try { // cREATE
+    const allRoles = await database.role_view();
+    const allManagers = await database.manager_view();
+    newEmp = {};
+    newEmp.name = await
+      prompt([
+        {
+          name: "first_name",
+          type: "input",
+          message: "What is the employee's first name?",
+        },
+        {
+          name: "last_name",
+          type: "input",
+          message: "What is the employee's last name?",
+        },
+      ])
+    newEmp.role = await prompt(
       {
-        name: "first_name",
-        type: "input",
-        message: "What is the employee's first name?",
-      },
-      {
-        name: "last_name",
-        type: "input",
-        message: "What is the employee's last name?",
-      },
-    ])
-   newEmp.Role= await prompt(
-    {
-      name: "role_id",
-      type: "rawlist",
-      message: "what is the employee's Role?",
-      choices: allRoles.map(({id, title}) => ({
-        name: title,
-        value: id
-      }))
-    }),
+        name: "role_id",
+        type: "rawlist",
+        message: "what is the employee's Role?",
+        choices: allRoles.map(({ id, title }) => ({
+          name: title,
+          value: id
+        }))
+      }),
 
-   newEmp.Manager = await prompt({
-       name: "manager_id",
-      type: "rawlist",
-      message: "Who is this employee's manager?",
-      choices: allManagers.map(({id,first_name, last_name})=>({
-        name:first_name, last_name,
-        value: id
-      }))
-    }),
-    await database.employee_add(newEmp);
+      newEmp.manager = await prompt({
+        name: "manager_id",
+        type: "rawlist",
+        message: "Who is this employee's manager?",
+        choices: allManagers.map(({ id, first_name, last_name }) => ({
+          name: first_name, last_name,
+          value: id
+        }))
+      }),
+      await database.employee_add(newEmp);
+    console.log(newEmp)
     console.log("Employee has been added!!");
     viewAllEmployees();
+  } catch (err) { console.log(err) }
+}
+
+async function addRole() {
+  try{
+  const allDepartments = await database.department_view();
+  newRole = {};
+  newRole.title = await
+    prompt([
+      {
+        name: "title",
+        type: "input",
+        message: "What is the Role title?",
+      }])
+  newRole.salary = await
+    prompt([{
+      name: "salary",
+      type: "number",
+      message: "What is the Role salary?",
+    }])
+  newRole.department_id = await
+    prompt([{
+      name: "department_id",
+      type: "rawlist",
+      message: "what department is it does this Role belong to?",
+      choices: allDepartments.map(({ id, name }) => ({
+        name: name,
+        value: id
+      }))
+    }]),
+    await database.department_add(newRole);
+    console.log(newRole)
+    console.log("Role has been added!!");
+    viewAllRoles();
+  } catch(err) {console.log(err)}
 }
 //   newEmp.role = roleId
 

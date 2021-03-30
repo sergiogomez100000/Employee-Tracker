@@ -41,39 +41,17 @@ class Database {
     }
 
     role_add() {
-        inquirer
-            .prompt([
-                {
-                    name: "title",
-                    type: "input",
-                    message: "What is the Role title?",
-                },
-                {
-                    name: "salary",
-                    type: "number",
-                    message: "What is the Role salary?",
-                },
-                {
-                    name: "department_id",
-                    type: "input",
-                    message: "what department is it does this Role belong to?",
-                },
-            ])
-            .then(function (response) {
-                this.connection.query(
-                    `INSERT INTO role (title,salary,department_id) VALUES ("${response.title}",${response.salary},${response.department_id})`,
-                    function (err, results) {
-                        if (err) throw err;
-                        console.table(results);
-                    }
-                );
-            });
+         return this.connection.query(
+            "INSERT INTO role (title,salary,department_id) VALUES (?,?,?)",
+            [newRole.title.title,newRole.salary.salary,newRole.department_id.department_id]
+        );
+
     }
 
     employee_add(newEmp) {
         return this.connection.query(
             "INSERT INTO employee (first_name, last_name, role_id,manager_id) VALUES (?,?,?,?)",
-            [newEmp.Name.first_name, newEmp.Name.last_name, newEmp.role_id, newEmp.manager_id]
+            [newEmp.name.first_name, newEmp.name.last_name, newEmp.role.role_id, newEmp.manager.manager_id]
         );
     }
 
