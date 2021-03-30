@@ -8,12 +8,13 @@ require("console.table");
 
 init();
 
-function init() {
+ function init() {
 
-  loadPrompts();
+loadPrompts();
 }
 
 function loadPrompts() {
+
   prompt([
     {
       name: "Menu",
@@ -30,24 +31,20 @@ function loadPrompts() {
       ],
     },
   ])
-    // .then(function (answer) {
-    //   console.log(answer.Menu)
-    //   switch (answer.Menu) {
-    //     case "View Employees":
-    //       viewAllEmployees();
-    //       break;
-        // case "View Roles":
-        //   role_view();
-        //   // init();
-        //   break;
-        // case "View Departments":
-        //   department_view();
-        //   init();
-        //   break;
-        // case "Add Employee":
-        //   database.employee_add();
-        //   init();
-        //   break;
+    .then(function (answer) {
+      switch (answer.Menu) {
+        case "View Employees":
+          viewAllEmployees();
+          break;
+        case "View Roles":
+          viewAllRoles();
+          break;
+        case "View Departments":
+          viewAllDepartments();
+          break;
+        case "Add Employee":
+          addEmployee();
+          break;
         // case "Add Role":
         //   database.role_add();
         //    init();
@@ -60,45 +57,61 @@ function loadPrompts() {
         //   database.employee_update();
         // //   init();
         //   break;
-        // default:
-        //   init();
-    //   }
-    //   // });
-    // })
-
+        default:
+          init();
+      }
+      });
 }
 
 
 
-  // async function viewAllEmployees() {
-  //   console.log("Viewing employees..")
-  //   const employees = await database.employee_view();
-  //   console.table(employees);
-  //   loadPrompts();
-  // }
+async function viewAllEmployees() {
+    console.log("Viewing employees..")
+    const employees = await database.employee_view();
+    console.table(employees);
+    loadPrompts();
+}
 
-// async function viewAllEmployees(){
-//   console.log("Viewing employees..")
-//   const employees = await database.employee_view();
-//   console.table(employees);
-//   loadPrompts();
-// }
+async function viewAllRoles(){
+  console.log("Viewing roles..")
+  const roles = await database.role_view();
+  console.table(roles);
+  loadPrompts();
+}
+
+async function viewAllDepartments(){
+  console.log("Viewing departments..")
+  const departments = await database.department_view();
+  console.table(departments);
+  loadPrompts();
+}
 
 
-
-// function department_view(){
-//   console.log("Viewing departments..")
-//    database.department_view()
-//   .then(data => {
-//     console.log(data)
-
-//     init();
-//   })
-//   .catch(e => console.error(e))
-// }
-// async function createEmployee() { // cREATE
-//   const allRoles = await database.role_view();
-//   // inquirer.prompt to get first name & last name
+async function addEmployee() { // cREATE
+  const allRoles = await database.role_view();
+ const newEmp= await inquirer
+            .prompt([
+                {
+                    name: "first_name",
+                    type: "input",
+                    message: "What is the employee's first name?",
+                },
+                {
+                    name: "last_name",
+                    type: "input",
+                    message: "What is the employee's last name?",
+                },
+                {
+                    name: "role_id",
+                    type: "input",
+                    message: "what is the employee's Role?",
+                },
+                {
+                    name: "manager_id",
+                    type: "input",
+                    message: "Who is this employee' manager? ",
+                },
+            ])
 //   const newEmp = await inquirer.prompt([
 //     {
 //       name: "first_name",

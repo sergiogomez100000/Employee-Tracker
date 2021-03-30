@@ -7,22 +7,15 @@ class Database {
     }
 /////////////////////// view methods (department, role, employee)
     department_view() {
-        // this.connection.query("Select * FROM department", function (err, results) { // READ
-        //     if (err) throw err;
-        //     console.table(results);
-        // });
-        return this.connection.query("SELECT * FROM department")
+        return this.connection.query("SELECT * FROM department");
     }
 
-    role_view() {
-        this.connection.query("Select * FROM role", function (err, results) {
-            if (err) throw err;
-            console.table(results);
-        });
+    role_view(){
+        return this.connection.query("SELECT * FROM role");
     }
 
     employee_view(){
-    return this.connection.query("SELECT first_name, last_name, title FROM employee INNER JOIN role ON role_id = role.id");
+        return this.connection.query("SELECT first_name, last_name, title FROM employee INNER JOIN role ON role_id = role.id");
    }
 
 ////////add methods (department, role, employee)
@@ -75,29 +68,7 @@ class Database {
     }
 
     employee_add(){
-        inquirer
-            .prompt([
-                {
-                    name: "first_name",
-                    type: "input",
-                    message: "What is the employee's first name?",
-                },
-                {
-                    name: "last_name",
-                    type: "input",
-                    message: "What is the employee's last name?",
-                },
-                {
-                    name: "role_id",
-                    type: "input",
-                    message: "what is the employee's Role?",
-                },
-                {
-                    name: "manager_id",
-                    type: "input",
-                    message: "Who is this employee' manager? ",
-                },
-            ])
+        
             .then(function (response) {
                 this.connection.query(
                     `INSERT INTO employee (first_name, last_name, role_id,manager_id) VALUES ("${response.first_name}","${response.last_name}",${response.role_id},${response.manager_id})`,
