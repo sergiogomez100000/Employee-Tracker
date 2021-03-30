@@ -5,20 +5,20 @@ class Database {
     constructor(connection) {
         this.connection = connection;
     }
-/////////////////////// view methods (department, role, employee)
+    /////////////////////// view methods (department, role, employee)
     department_view() {
         return this.connection.query("SELECT * FROM department");
     }
 
-    role_view(){
+    role_view() {
         return this.connection.query("SELECT * FROM role");
     }
 
-    employee_view(){
+    employee_view() {
         return this.connection.query("SELECT first_name, last_name, title FROM employee INNER JOIN role ON role_id = role.id");
-   }
+    }
 
-////////add methods (department, role, employee)
+    ////////add methods (department, role, employee)
     department_add() {
         inquirer
             .prompt({
@@ -37,7 +37,7 @@ class Database {
             });
     }
 
-     role_add() {
+    role_add() {
         inquirer
             .prompt([
                 {
@@ -67,22 +67,15 @@ class Database {
             });
     }
 
-    employee_add(){
-        
-            .then(function (response) {
-                this.connection.query(
-                    `INSERT INTO employee (first_name, last_name, role_id,manager_id) VALUES ("${response.first_name}","${response.last_name}",${response.role_id},${response.manager_id})`,
-                    function (err, results) {
-                        if (err) throw err;
-                        console.table(results);
-                    }
-                );
-            });
+    employee_add() {
+       return this.connection.query(
+            `INSERT INTO employee (first_name, last_name, role_id,manager_id) VALUES ("${response.first_name}","${response.last_name}",${response.role_id},${response.manager_id})`,
+        );
     }
 
 
-///////////////update method for employee
-    employee_update(){
+    ///////////////update method for employee
+    employee_update() {
         inquirer
             .prompt([
                 {

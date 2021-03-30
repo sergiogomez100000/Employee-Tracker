@@ -8,9 +8,9 @@ require("console.table");
 
 init();
 
- function init() {
+function init() {
 
-loadPrompts();
+  loadPrompts();
 }
 
 function loadPrompts() {
@@ -60,26 +60,26 @@ function loadPrompts() {
         default:
           init();
       }
-      });
+    });
 }
 
 
 
 async function viewAllEmployees() {
-    console.log("Viewing employees..")
-    const employees = await database.employee_view();
-    console.table(employees);
-    loadPrompts();
+  console.log("Viewing employees..")
+  const employees = await database.employee_view();
+  console.table(employees);
+  loadPrompts();
 }
 
-async function viewAllRoles(){
+async function viewAllRoles() {
   console.log("Viewing roles..")
   const roles = await database.role_view();
   console.table(roles);
   loadPrompts();
 }
 
-async function viewAllDepartments(){
+async function viewAllDepartments() {
   console.log("Viewing departments..")
   const departments = await database.department_view();
   console.table(departments);
@@ -89,41 +89,38 @@ async function viewAllDepartments(){
 
 async function addEmployee() { // cREATE
   const allRoles = await database.role_view();
- const newEmp= await inquirer
-            .prompt([
-                {
-                    name: "first_name",
-                    type: "input",
-                    message: "What is the employee's first name?",
-                },
-                {
-                    name: "last_name",
-                    type: "input",
-                    message: "What is the employee's last name?",
-                },
-                {
-                    name: "role_id",
-                    type: "input",
-                    message: "what is the employee's Role?",
-                },
-                {
-                    name: "manager_id",
-                    type: "input",
-                    message: "Who is this employee' manager? ",
-                },
-            ])
-//   const newEmp = await inquirer.prompt([
-//     {
-//       name: "first_name",
-//       question: "What is the employee's first name"
-//     }
-//   ])  // no .then
+  const newEmp = await inquirer
+    .prompt([
+      {
+        name: "first_name",
+        type: "input",
+        message: "What is the employee's first name?",
+      },
+      {
+        name: "last_name",
+        type: "input",
+        message: "What is the employee's last name?",
+      },
+    ])
+    .prompt(
+    {
+      name: "role_id",
+      type: "rawlist",
+      message: "what is the employee's Role?",
+      choices: allRoles.map(({id, title}) => ({
+        name: title,
+        value: id
+      }))
+    }),
 
-//   // offer role choices
-//   allRoles.map(({id, title}) => ({
-//     name: title,
-//     value: id
-//   }))
+    newEmp.role=roleId;
+    // {
+    //   name: "manager_id",
+    //   type: "input",
+    //   message: "Who is this employee's manager? ",
+    // },
+
+  
 
 //   newEmp.role = roleId
 
