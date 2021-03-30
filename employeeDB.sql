@@ -1,6 +1,6 @@
--- Drops the animals_db if it exists currently -- Deletes if it exists
+-- Drops the employee_db if it exists currently -- Deletes if it exists
 DROP DATABASE IF EXISTS employees_db;
--- Creates the "animals_db" database --
+-- Creates the "employees_db" database --
 CREATE DATABASE employees_db;
 
 -- Makes it so all of the following code will affect animals_db --

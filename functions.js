@@ -1,17 +1,31 @@
 const inquirer = require("inquirer");
+const connection = require("./db/index.js");
 
-class database {
+class Database {
     constructor(connection) {
         this.connection = connection;
     }
-
+/////////////////////// view methods (department, role, employee)
     department_view() {
-        this.connection.query("Select * FROM department", function (err, results) {
+        // this.connection.query("Select * FROM department", function (err, results) { // READ
+        //     if (err) throw err;
+        //     console.table(results);
+        // });
+        return this.connection.query("SELECT * FROM department")
+    }
+
+    role_view() {
+        this.connection.query("Select * FROM role", function (err, results) {
             if (err) throw err;
             console.table(results);
-            init();
         });
     }
+
+    employee_view(){
+    return this.connection.query("SELECT first_name, last_name, title FROM employee INNER JOIN role ON role_id = role.id");
+   }
+
+////////add methods (department, role, employee)
     department_add() {
         inquirer
             .prompt({
@@ -30,16 +44,7 @@ class database {
             });
     }
 
-
-
-    role_view() {
-        this.connection.query("Select * FROM role", function (err, results) {
-            if (err) throw err;
-            console.table(results);
-            init();
-        });
-    }
-    role_add() {
+     role_add() {
         inquirer
             .prompt([
                 {
@@ -69,14 +74,6 @@ class database {
             });
     }
 
-
-
-    employee_view(){
-         this.connection.query("SELECT * FROM employee", function (err, results) {
-            if (err) throw err;
-            console.table(results);
-        });
-    }
     employee_add(){
         inquirer
             .prompt([
@@ -111,6 +108,9 @@ class database {
                 );
             });
     }
+
+
+///////////////update method for employee
     employee_update(){
         inquirer
             .prompt([
@@ -145,5 +145,5 @@ class database {
     }
 };
 
-
-module.exports = database;
+//export database and myDatabase
+module.exports = new Database(connection);
