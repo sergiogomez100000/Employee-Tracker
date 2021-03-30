@@ -25,6 +25,9 @@ CREATE TABLE role (
   department_id INT,
   
   PRIMARY KEY (id)
+  CONSTRAINT department_role
+    FOREIGN KEY (department_id) 
+        REFERENCES department(id)
 );
 
 CREATE TABLE employee (
@@ -40,6 +43,9 @@ CREATE TABLE employee (
   manager_id INT,
   
   PRIMARY KEY (id)
+  CONSTRAINT role_employee
+    FOREIGN KEY (role_id) 
+        REFERENCES role(id)
 );
 
 -- SELECT title, name
@@ -49,3 +55,5 @@ CREATE TABLE employee (
 -- SELECT first_name,last_name, title
 -- FROM employee
 -- INNER JOIN role ON role_id = role.id;
+
+SELECT  INNER JOIN role WHERE id=1;

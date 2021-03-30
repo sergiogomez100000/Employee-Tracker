@@ -17,6 +17,9 @@ class Database {
     employee_view() {
         return this.connection.query("SELECT first_name, last_name, title FROM employee INNER JOIN role ON role_id = role.id");
     }
+    manager_view(){
+        return this.connection.query("SELECT * FROM employee WHERE id=1");
+    }
 
     ////////add methods (department, role, employee)
     department_add() {
@@ -69,7 +72,7 @@ class Database {
 
     employee_add() {
        return this.connection.query(
-            `INSERT INTO employee (first_name, last_name, role_id,manager_id) VALUES ("${response.first_name}","${response.last_name}",${response.role_id},${response.manager_id})`,
+            `INSERT INTO employee (first_name, last_name, role_id,manager_id) VALUES ("${newEmp.first_name}","${newEmp.last_name}",${newEmp.role_id},${newEmp.manager_id})`,
         );
     }
 

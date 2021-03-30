@@ -89,7 +89,9 @@ async function viewAllDepartments() {
 
 async function addEmployee() { // cREATE
   const allRoles = await database.role_view();
-  const newEmp = await
+  const allManagers = await database.manager_view();
+  newEmp = [];
+  newEmp.Name = await
     prompt([
       {
         name: "first_name",
@@ -102,7 +104,7 @@ async function addEmployee() { // cREATE
         message: "What is the employee's last name?",
       },
     ])
-   const newEmpRole= await prompt(
+   newEmp.Role= await prompt(
     {
       name: "role_id",
       type: "rawlist",
@@ -113,16 +115,20 @@ async function addEmployee() { // cREATE
       }))
     }),
 
-   const newEmpManager = await prompt({
+   newEmp.Manager = await prompt({
        name: "manager_id",
       type: "rawlist",
       message: "Who is this employee's manager?",
-      choices: 
+      choices: allManagers.map(({id,title})=>({
+        name:title,
+        value: id
+      }))
     }),
-    
-
-  
-
+    await database.employee_add(newEmp);
+    console.log("Employee has been added!!");
+    console.table(employees);
+  loadPrompts();
+}
 //   newEmp.role = roleId
 
 //   // give them manager choices
