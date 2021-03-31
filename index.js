@@ -191,14 +191,17 @@ async function updateEmployeeRole() {
   }]),
     updateEmp.role = await prompt([{
       name: "role_id",
-      type: "input",
+      type: "rawlist",
       message: "What role would you like to change it to?",
       choices: allRoles.map(({ id, title }) => ({
         name: title,
         value: id,
       }))
     }]),
+    console.log(updateEmp)
     await database.employee_update(updateEmp);
+    console.log("Updating employee role!!")
+    viewAllEmployees();
 
 
 }

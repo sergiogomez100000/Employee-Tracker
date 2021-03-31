@@ -48,7 +48,8 @@ class Database {
     ///////////////update method for employee
     employee_update() {
                 return this.connection.query(
-                    "Update employee SET role_id = ? WHERE first_name = ?, last_name = ? ",
+                    "Update employee SET role_id = ? WHERE first_name = ?",
+                    [updateEmp.role.role_id, updateEmp.first_name]
                    
                 ); 
     }
