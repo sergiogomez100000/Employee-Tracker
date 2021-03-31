@@ -53,6 +53,14 @@ class Database {
                    
                 ); 
     }
+
+    //delete method for employee
+    employee_delete(){
+        return this.connection.query(
+            "DELETE FROM employee WHERE first_name = ?, last_name = ?",
+            [deleteEmp.first_name, deleteEmp.last_name]
+        )
+    }
 };
 
 //export database and myDatabase

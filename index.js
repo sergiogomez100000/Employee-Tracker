@@ -29,6 +29,7 @@ function loadPrompts() {
         "Add Role",
         "Add Department",
         "Update Employee Role",
+        "Delete Employee"
       ],
     },
   ])
@@ -54,6 +55,9 @@ function loadPrompts() {
           break;
         case "Update Employee Role":
           updateEmployeeRole();
+          break;
+        case "Delete Employee":
+          deleteEmployee();
           break;
         default:
           init();
@@ -202,21 +206,24 @@ async function updateEmployeeRole() {
     await database.employee_update(updateEmp);
     console.log("Updating employee role!!")
     viewAllEmployees();
+}
 
+async function deleteEmployee(){
+  const allEmployees = await database.employee_view();
+  deleteEmp = {};
+  deleteEmp = await prompt([{
+    name: "first_name",
+    type: "rawlist",
+    message:
+      "What is the name of the employee that you would like to delete?",
+    choices: allEmployees.map(({ first_name, last_name }) => ({
+      name: first_name, last_name,
+    }))
+  }]),
+  console.log(deleteEmp);
+  await database.employee_delete(deleteEmp);
+  console.log("Deleting employee!!")
+  viewAllEmployees();
 
 }
 
-
-
-// function employee_update() {
-//   // get all the employees --> choose which employee
-//   // map over all employees, and render each as option
-
-//   // new set of inquirer.prompts for updating role --> which employee's role to update
-
-//   // show all the roles
-
-//   // database.updateEmployeeRole(empId, roleId);
-
-//   // init()
-//}
