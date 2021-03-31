@@ -172,9 +172,12 @@ newDepartment.name = await prompt({
                 type: "input",
                 message: "What is the department name?",
             }),
-            await database.
+            await database.department_add(newDepartment);
+            console.log("Department has been added!")
+            viewAllDepartments();
 }
 
+async function 
 
 
 // function employee_update() {

@@ -23,16 +23,10 @@ class Database {
 
     ////////add methods (department, role, employee)
     department_add() {
-        
-            .then(function (response) {
-                this.connection.query(
-                    `INSERT INTO department (name) VALUES ("${response.name}")`,
-                    function (err, results) {
-                        if (err) throw err;
-                        console.table(results);
-                    }
+        return this.connection.query(
+                    "INSERT INTO department (name) VALUES (?)",
+                   [newDepartment.name.name]
                 );
-            });
     }
 
     role_add() {
