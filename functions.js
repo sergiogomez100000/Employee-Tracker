@@ -24,15 +24,15 @@ class Database {
     ////////add methods (department, role, employee)
     department_add() {
         return this.connection.query(
-                    "INSERT INTO department (name) VALUES (?)",
-                   [newDepartment.name.name]
-                );
+            "INSERT INTO department (name) VALUES (?)",
+            [newDepartment.name.name]
+        );
     }
 
     role_add() {
-         return this.connection.query(
+        return this.connection.query(
             "INSERT INTO role (title,salary,department_id) VALUES (?,?,?)",
-            [newRole.title.title,newRole.salary.salary,newRole.department_id.department_id]
+            [newRole.title.title, newRole.salary.salary, newRole.department_id.department_id]
         );
 
     }
@@ -47,19 +47,19 @@ class Database {
 
     ///////////////update method for employee
     employee_update() {
-                return this.connection.query(
-                    "Update employee SET role_id = ? WHERE first_name = ?",
-                    [updateEmp.role.role_id, updateEmp.first_name]
-                   
-                ); 
+        return this.connection.query(
+            "Update employee SET role_id = ? WHERE first_name = ?",
+            [updateEmp.role.role_id, updateEmp.first_name]
+
+        );
     }
 
     //delete method for employee
-    employee_delete(){
+    employee_delete() {
         return this.connection.query(
             "DELETE FROM employee WHERE first_name = ?, last_name = ?",
             [deleteEmp.first_name, deleteEmp.last_name]
-        )
+        );
     }
 };
 
